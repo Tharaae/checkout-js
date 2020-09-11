@@ -8,7 +8,7 @@ import { withCheckout, CheckoutContextProps } from '../../checkout';
 import { connectFormik, ConnectFormikProps } from '../../common/form';
 import { MapToPropsFactory } from '../../common/hoc';
 import { withLanguage, WithLanguageProps } from '../../locale';
-import { withForm, WithFormProps } from '../../ui/form';
+import { withForm, CheckboxFormField, WithFormProps } from '../../ui/form';
 import { LoadingOverlay } from '../../ui/loading';
 import { configureCardValidator, getCreditCardValidationSchema, CreditCardFieldset, CreditCardFieldsetValues } from '../creditCard';
 import { HostedCreditCardFieldsetValues } from '../hostedCreditCard';
@@ -185,6 +185,13 @@ class CreditCardPaymentMethod extends Component<
                                 shouldShowNumberField={ shouldShowNumberField }
                             /> }
                     /> }
+
+                    {method.id === 'stripe' && <CheckboxFormField
+                        additionalClassName="form-field--setAsDefaultInstrument"
+                        disabled={false}
+                        labelContent="Reorder this product monthly"
+                        name="subscribeMonthly"
+                    />}
 
                     { shouldShowCreditCardFieldset && !cardFieldset && <CreditCardFieldset
                         shouldShowCardCodeField={ method.config.cardCode || method.config.cardCode === null }
